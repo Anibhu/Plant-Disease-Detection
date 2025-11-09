@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Predictions</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+</head>
+<body>
+    <h2>Live Disease Predictions</h2>
+    <ul id="predictions-list"></ul>
+
+    <script>
+        // TODO: Replace this config with your Firebase project’s config
+        const firebaseConfig = {
+            apiKey: "",
+            authDomain: "",
+            databaseURL: "",
+            projectId: "",
+            storageBucket: "", // PUT THE DETAILS HERE
+            messagingSenderId: "",
+            appId: "",
+            measurementId: ""
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const dbRef = firebase.database().ref("predictions");
+
+        dbRef.on("child_added", (snapshot) => {
+            const data = snapshot.val();
+            const list = document.getElementById("predictions-list");
+            const item = document.createElement("li");
+
+            item.innerHTML = `
+                <strong>Disease:</strong> ${data.disease} <br>
+                <strong>Confidence:</strong> ${(data.confidence * 100).toFixed(2)}% <br>
+                <strong>Time:</strong> ${new Date(data.timestamp).toLocaleString()}
+                <hr>
+            `;
+            list.prepend(item);
+        });
+    </script>
+</body>
+</html>
+
+
+!
