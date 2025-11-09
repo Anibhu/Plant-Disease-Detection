@@ -1,0 +1,18 @@
+# Ignore virtual environments
+venv/
+.env/
+__pycache__/
+
+# Ignore model files
+*.h5
+*.keras
+*.pkl
+*.joblib
+
+# Ignore system and notebook checkpoints
+.DS_Store
+.ipynb_checkpoints/
+
+# Ignore temporary or cache files
+*.log
+*.tmp
